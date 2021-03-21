@@ -1,0 +1,72 @@
+version: '3'
+
+volumes:
+  pgadmin-data:
+
+services:
+  app:
+    container_name: java-APSOO-Venda-Carros
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # [Choice] Java version: 11, 14
+        VARIANT: 14
+        INSTALL_MAVEN: "true"
+        INSTALL_GRADLE: "true"
+        INSTALL_NODE: "true"
+        NODE_VERSION: "lts/*"
+        # On Linux, you may need to update USER_UID and USER_GID below if not your local UID is not 1000.
+        USER_UID: 1000
+        USER_GID: 1000
+
+    volumes:
+      - ..:/workspace:cached
+      
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
+    # network_mode: service:db
+
+    # Uncomment the next line to use a non-root user for all processes.
+    # user: node
+
+    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally. 
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+
+  dbDev:
+    container_name: db-dev-APSOO-Venda-Carros
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: I8qBgHk8fNkYt28MrQIvPt
+      POSTGRES_USER: developer
+      POSTGRES_DB: development
+    restart: unless-stopped
+
+    # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward MongoDB locally.
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+
+  dbTest:
+    container_name: db-test-APSOO-Venda-Carros
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: h7wKAn1Pe10szPbBVwHKuQ
+      POSTGRES_USER: tester
+      POSTGRES_DB: test
+    restart: unless-stopped
+
+  pgAdmin:
+    container_name: pgadmin-APSOO-Venda-Carros
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    depends_on: 
+      - dbDev
+      - dbTest
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+      - pgadmin-data:/certs/server.cert
+      - pgadmin-data:/certs/server.key
+    restart: unless-stopped
