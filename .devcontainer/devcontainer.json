@@ -1,27 +1,34 @@
-// Update the VARIANT arg in docker-compose.yml to pick a Node.js version: 10, 12, 14 
+// Update the VARIANT arg in docker-compose.yml to pick a Node.js version: 10, 12, 14
 {
-	"name": "APSOO Venda de Carros",
-	"dockerComposeFile": "docker-compose.yml",
-	"service": "app",
-	"runServices": ["app", "dbDev", "dbTest", "pgAdmin"],
-	"workspaceFolder": "/workspace",
-
-	// Set *default* container specific settings.json values on container create.
-	"settings": { 
-		"terminal.integrated.shell.linux": "/bin/zsh",
-	},
-
-	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"vscjava.vscode-java-pack",
-	],
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [3000, 5432],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "sh /workspace/.devcontainer/script/update_zsh.sh",
-
-	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode"
+  "name": "APSOO Venda de Carros",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "runServices": ["app", "dbDev", "dbTest", "pgAdmin"],
+  "workspaceFolder": "/workspace",
+  // Set *default* container specific settings.json values on container create.
+  "settings": {
+    "terminal.integrated.profiles.linux": {
+      "bash": {
+        "path": "bash"
+      },
+      "zsh": {
+        "path": "zsh"
+      },
+    },
+    "maven.executable.path": "mvn"
+  },
+  // Add the IDs of extensions you want installed when the container is created.
+  "extensions": [
+	"vscjava.vscode-java-pack",
+	"pivotal.vscode-boot-dev-pack",
+	"sohibe.java-generate-setters-getters",
+	"gabrielbb.vscode-lombok"
+],
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [3000, 5432],
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "sh /workspace/.devcontainer/script/app_ohmyzsh.sh",
+  // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  "remoteUser": "vscode",
+  "shutdownAction": "stopCompose"
 }

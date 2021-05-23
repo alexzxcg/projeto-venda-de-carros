@@ -1,5 +1,3 @@
-#!/usr/bin/env sh
-
 # Install antigen
 curl -L git.io/antigen > $HOME/.antigen.zsh
 
@@ -13,7 +11,7 @@ git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zs
 sed -i 's/^plugins=.*/plugins=(git sudo zsh-completions zsh_reload)\nautoload -U compinit \&\& compinit/' $HOME/.zshrc
 
 # remove default theme
-sed -i 's/^ZSH_THEME="codespaces"$/#ZSH_THEME="codespaces"/' $HOME/.zshrc
+# sed -i 's/^ZSH_THEME="codespaces"$/ZSH_THEME="codespaces"/' $HOME/.zshrc
 
 # append to zshrc
 cat << EOF >> $HOME/.zshrc
@@ -27,8 +25,6 @@ antigen use oh-my-zsh
 # Load bundles from external repos.
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
-
-antigen theme denysdovhan/spaceship-prompt
 
 # Tell Antigen that you're done.
 antigen apply
