@@ -13,16 +13,17 @@
       },
       "zsh": {
         "path": "zsh"
-      },
+      }
     },
-    "maven.executable.path": "mvn"
+    "maven.executable.path": "/usr/local/sdkman/candidates/maven/current/bin/mvn"
   },
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
 	"vscjava.vscode-java-pack",
 	"pivotal.vscode-boot-dev-pack",
 	"sohibe.java-generate-setters-getters",
-	"gabrielbb.vscode-lombok"
+	"gabrielbb.vscode-lombok",
+	"vscjava.vscode-java-debug"
 ],
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [3000, 5432],
