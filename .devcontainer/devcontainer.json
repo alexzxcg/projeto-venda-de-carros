@@ -1,11 +1,17 @@
-// Update the VARIANT arg in docker-compose.yml to pick a Node.js version: 10, 12, 14
 {
   "name": "APSOO Venda de Carros",
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
-  "runServices": ["app", "dbDev", "dbTest", "pgAdmin"],
+  "runServices": [
+    "app",
+    "dbDev",
+    "dbTest",
+    "pgAdmin"
+  ],
+  "remoteEnv": {
+    "DISPLAY": "${localEnv:DISPLAY}"
+  },
   "workspaceFolder": "/workspace",
-  // Set *default* container specific settings.json values on container create.
   "settings": {
     "terminal.integrated.profiles.linux": {
       "bash": {
@@ -17,19 +23,12 @@
     },
     "maven.executable.path": "/usr/local/sdkman/candidates/maven/current/bin/mvn"
   },
-  // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
-	"vscjava.vscode-java-pack",
-	"pivotal.vscode-boot-dev-pack",
-	"sohibe.java-generate-setters-getters",
-	"gabrielbb.vscode-lombok",
-	"vscjava.vscode-java-debug"
-],
-  // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  // "forwardPorts": [3000, 5432],
-  // Use 'postCreateCommand' to run commands after the container is created.
+    "vscjava.vscode-java-pack",
+    "GabrielBB.vscode-lombok",
+    "sohibe.java-generate-setters-getters",
+  ],
   "postCreateCommand": "sh /workspace/.devcontainer/script/app_ohmyzsh.sh",
-  // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   "remoteUser": "vscode",
   "shutdownAction": "stopCompose"
 }
