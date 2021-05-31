@@ -24,10 +24,12 @@
     "maven.executable.path": "/usr/local/sdkman/candidates/maven/current/bin/mvn"
   },
   "extensions": [
-    "vscjava.vscode-java-pack",
-    "GabrielBB.vscode-lombok",
-    "sohibe.java-generate-setters-getters",
-  ],
+	"vscjava.vscode-java-pack",
+	"GabrielBB.vscode-lombok",
+	"sohibe.java-generate-setters-getters",
+	"redhat.vscode-xml",
+  "mtxr.sqltools",
+],
   "postCreateCommand": "sh /workspace/.devcontainer/script/app_ohmyzsh.sh",
   "remoteUser": "vscode",
   "shutdownAction": "stopCompose"

@@ -8,46 +8,32 @@ services:
     container_name: java-APSOO-Venda-Carros
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: dockerfiles/app.Dockerfile
       args:
-        # [Choice] Java version: 11, 14
         VARIANT: 11
         INSTALL_MAVEN: "true"
         INSTALL_GRADLE: "true"
         INSTALL_NODE: "true"
         NODE_VERSION: "lts/*"
-        # On Linux, you may need to update USER_UID and USER_GID below if not your local UID is not 1000.
         USER_UID: 1000
         USER_GID: 1000
     environment:
       - DISPLAY=${DISPLAY}
-
     volumes:
       - ..:/workspace:cached
       - /tmp/.X11-unix:/tmp/.X11-unix
-
-    # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
-
-    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
-    # network_mode: service:db
-
-    # Uncomment the next line to use a non-root user for all processes.
-    # user: node
-
-    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
-    # (Adding the "ports" property to this file will not forward from a Codespace.)
 
   dbDev:
     container_name: postgres-dev-APSOO-Venda-Carros
-    image: postgres:latest
+    image: "ufms-apsoo-venda-carros_devcontainer_dbdev"
+    build:
+      context: .
+      dockerfile: dockerfiles/dbDev.Dockerfile
     env_file: env/db.dev.env
     depends_on:
       - app
     restart: unless-stopped
-
-    # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward MongoDB locally.
-    # (Adding the "ports" property to this file will not forward from a Codespace.)
 
   dbTest:
     container_name: postgres-test-APSOO-Venda-Carros
@@ -67,6 +53,7 @@ services:
       - dbDev
       - dbTest
     volumes:
+      - ./config/servers.json:/pgadmin4/servers.json
       - pgadmin-data:/var/lib/pgadmin
       - pgadmin-data:/certs/server.cert
       - pgadmin-data:/certs/server.key

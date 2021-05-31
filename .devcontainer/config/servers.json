@@ -1,0 +1,22 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Dev",
+      "Group": "Servers",
+      "Port": 5432,
+      "Username": "developer",
+      "Host": "dbDev",
+      "SSLMode": "prefer",
+      "MaintenanceDB": "development"
+    },
+    "2": {
+      "Name": "Test",
+      "Group": "Servers",
+      "Port": 5432,
+      "Username": "tester",
+      "Host": "dbTest",
+      "SSLMode": "prefer",
+      "MaintenanceDB": "test"
+    }
+  }
+}
