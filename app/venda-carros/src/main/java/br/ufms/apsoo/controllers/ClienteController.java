@@ -36,5 +36,15 @@ public class ClienteController {
     return true;
   }
 
+  public String buscar(String clienteCpf) {
+    try {
+      Cliente c = clienteDao.buscarPorCpf(clienteCpf);
+      return c.getNome();
+    } catch (Exception e) {
+      System.err.println(e);
+      return "Cliente não cadastrado";
+    }
+  }
+
   
 }
