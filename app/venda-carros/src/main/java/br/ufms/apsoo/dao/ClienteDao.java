@@ -35,8 +35,8 @@ public class ClienteDao {
     return em.createQuery(jpql, Cliente.class).getResultList();
   }
 
-  public List<Cliente> buscarPorCpf(String cpf) {
-    String jpql = "SELECT c FROM Cliente WHERE c.cpf = ?1";
-    return em.createQuery(jpql, Cliente.class).setParameter(1, cpf).getResultList();
+  public Cliente buscarPorCpf(String clienteCpf) {
+    String jpql = "SELECT c FROM Cliente c WHERE c.cpf = ?1";
+    return em.createQuery(jpql, Cliente.class).setParameter(1, clienteCpf).getSingleResult();
   }
 }
