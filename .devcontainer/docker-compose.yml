@@ -35,13 +35,13 @@ services:
       - app
     restart: unless-stopped
 
-  dbTest:
-    container_name: postgres-test-APSOO-Venda-Carros
-    image: postgres:latest
-    env_file: env/db.test.env
-    depends_on:
-      - app
-    restart: unless-stopped
+  # dbTest:
+  #   container_name: postgres-test-APSOO-Venda-Carros
+  #   image: postgres:latest
+  #   env_file: env/db.test.env
+  #   depends_on:
+  #     - app
+  #   restart: unless-stopped
 
   pgAdmin:
     container_name: pgadmin-APSOO-Venda-Carros
@@ -51,7 +51,7 @@ services:
       - 8080:80
     depends_on:
       - dbDev
-      - dbTest
+      # - dbTest
     volumes:
       - ./config/servers.json:/pgadmin4/servers.json
       - pgadmin-data:/var/lib/pgadmin

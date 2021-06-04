@@ -5,7 +5,7 @@
   "runServices": [
     "app",
     "dbDev",
-    "dbTest",
+    // "dbTest",
     "pgAdmin"
   ],
   "remoteEnv": {
@@ -21,15 +21,29 @@
         "path": "zsh"
       }
     },
-    "maven.executable.path": "/usr/local/sdkman/candidates/maven/current/bin/mvn"
+    "maven.executable.path": "/usr/local/sdkman/candidates/maven/current/bin/mvn",
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "sqltools.connections": [
+      {
+        "previewLimit": 50,
+        "server": "dbDev",
+        "port": 5432,
+        "driver": "PostgreSQL",
+        "name": "Dev",
+        "database": "development",
+        "username": "developer",
+        "password": "devdatabase"
+      },
+    ]
   },
   "extensions": [
-	"vscjava.vscode-java-pack",
-	"GabrielBB.vscode-lombok",
-	"sohibe.java-generate-setters-getters",
-	"redhat.vscode-xml",
-  "mtxr.sqltools",
-],
+    "vscjava.vscode-java-pack",
+    "GabrielBB.vscode-lombok",
+    "sohibe.java-generate-setters-getters",
+    "redhat.vscode-xml",
+    "mtxr.sqltools",
+    "mtxr.sqltools-driver-pg"
+  ],
   "postCreateCommand": "sh /workspace/.devcontainer/script/app_ohmyzsh.sh",
   "remoteUser": "vscode",
   "shutdownAction": "stopCompose"
