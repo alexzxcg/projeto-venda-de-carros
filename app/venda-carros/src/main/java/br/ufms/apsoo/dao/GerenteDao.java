@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import br.ufms.apsoo.model.Funcionario;
 import br.ufms.apsoo.model.Gerente;
 
 public class GerenteDao {

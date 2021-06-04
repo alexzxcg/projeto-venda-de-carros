@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="administradores")
-public abstract class Administrador extends Pessoa {
+public class Administrador extends Pessoa {
 
   public Administrador() {
   }

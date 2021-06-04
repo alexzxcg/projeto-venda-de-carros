@@ -3,6 +3,7 @@ package br.ufms.apsoo.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -39,21 +40,8 @@ public class Pessoa {
   @Column(name = "atualizado_em")
   private LocalDate atualizadoEm = null;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   private Endereco endereco;
-
-  /**
-   * Construtor da classe Pessoa
-   * 
-   * @param cpf
-   * @param rg
-   * @param nome
-   * @param dataNascimento
-   * @param endereco
-   * @param telResidencial
-   * @param telCelular
-   * @param email
-   */
 
   public Pessoa() {
   }

@@ -14,22 +14,16 @@ import org.hibernate.annotations.GenerationTime;
 @Table(name = "clientes")
 public class Cliente extends Pessoa {
 
-  @Column(name = "codigoId", columnDefinition = "serial")
+  @Column(columnDefinition = "serial")
   @Generated(GenerationTime.INSERT)
   private Integer codigo;
   private double renda;
-
-  @Column(name = "criado_em")
-  private LocalDate criadoEm = LocalDate.now();
-
-  @Column(name = "atualizado_em")
-  private LocalDate atualizadoEm = null;
 
   public Cliente() {
   }
 
   public Cliente(String cpf, String rg, String nome, String email, LocalDate dataNascimento, String telResidencial,
-  String telCelular, Endereco endereco, double renda) {
+      String telCelular, Endereco endereco, double renda) {
     super(cpf, rg, nome, email, dataNascimento, telResidencial, telCelular, endereco);
     this.renda = renda;
   }
@@ -47,18 +41,6 @@ public class Cliente extends Pessoa {
     setAtualizadoEm(LocalDate.now());
   }
 
-  public LocalDate getCriadoEm() {
-    return this.criadoEm;
-  }
-
-  public LocalDate getAtualizadoEm() {
-    return this.atualizadoEm;
-  }
-
-  public void setAtualizadoEm(LocalDate atualizadoEm) {
-    this.atualizadoEm = atualizadoEm;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (o == this)
@@ -67,19 +49,17 @@ public class Cliente extends Pessoa {
       return false;
     }
     Cliente cliente = (Cliente) o;
-    return Objects.equals(codigo, cliente.codigo) && renda == cliente.renda
-        && Objects.equals(criadoEm, cliente.criadoEm) && Objects.equals(atualizadoEm, cliente.atualizadoEm);
+    return Objects.equals(codigo, cliente.codigo) && renda == cliente.renda;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(codigo, renda, criadoEm, atualizadoEm);
+    return Objects.hash(codigo, renda);
   }
 
   @Override
   public String toString() {
-    return "{" + " codigo='" + getCodigo() + "'" + ", renda='" + getRenda() + "'" + ", criadoEm='" + getCriadoEm() + "'"
-        + ", atualizadoEm='" + getAtualizadoEm() + "'" + "}";
+    return "{" + " codigo='" + getCodigo() + "'" + ", renda='" + getRenda() + "'" + "}";
   }
 
 }

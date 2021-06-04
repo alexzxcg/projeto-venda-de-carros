@@ -21,7 +21,7 @@ import javax.persistence.Table;
 public class Endereco {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+  private Integer id;
   private String cep;
   private String rua;
   private int numero;
@@ -43,7 +43,7 @@ public class Endereco {
     this.complemento = complemento;
   }
 
-  public Long getId() {
+  public Integer getId() {
     return this.id;
   }
 
@@ -111,7 +111,7 @@ public class Endereco {
       return false;
     }
     Endereco endereco = (Endereco) o;
-    return id == endereco.id && Objects.equals(cep, endereco.cep) && Objects.equals(rua, endereco.rua)
+    return Objects.equals(id, endereco.id) && Objects.equals(cep, endereco.cep) && Objects.equals(rua, endereco.rua)
         && numero == endereco.numero && Objects.equals(bairro, endereco.bairro)
         && Objects.equals(cidade, endereco.cidade) && Objects.equals(estado, endereco.estado)
         && Objects.equals(complemento, endereco.complemento);
@@ -126,7 +126,7 @@ public class Endereco {
   public String toString() {
     return "{" + " id='" + getId() + "'" + ", cep='" + getCep() + "'" + ", rua='" + getRua() + "'" + ", numero='"
         + getNumero() + "'" + ", bairro='" + getBairro() + "'" + ", cidade='" + getCidade() + "'" + ", estado='"
-        + getEstado() + "'" + "}";
+        + getEstado() + "'" + ", complemento='" + getComplemento() + "'" + "}";
   }
 
 }

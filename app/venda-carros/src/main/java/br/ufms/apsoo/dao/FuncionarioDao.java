@@ -39,4 +39,9 @@ public class FuncionarioDao {
     String jpql = "SELECT c FROM Funcionario WHERE c.cpf = ?1";
     return em.createQuery(jpql, Funcionario.class).setParameter(1, cpf).getResultList();
   }
+
+  public List<Funcionario> buscarSubordinados(String gerenteCpf) {
+    String jpql = "SELECT f from Funcionario f WHERE f.supervisor.cpf = :gerenteCpf";
+    return em.createQuery(jpql, Funcionario.class).setParameter("gerenteCpf", gerenteCpf).getResultList();
+  }
 }

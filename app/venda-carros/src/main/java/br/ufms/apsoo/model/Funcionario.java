@@ -1,65 +1,57 @@
 package br.ufms.apsoo.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 @Entity
 @Table(name = "funcionarios")
 public class Funcionario extends Pessoa {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private String codigo;
+  @Column(columnDefinition = "serial")
+  @Generated(GenerationTime.INSERT)
+  private Integer codigo;
 
   private String cargo;
+  private double salario;
 
   @Column(name = "carteira_trabalho")
   private String carteiraTrabalho;
 
   @Column(name = "carteira_contratacao")
-  private Date dataContratacao;
+  private LocalDate dataContratacao;
 
   @Column(name = "data_exoneracao")
   private LocalDate dataExoneracao;
 
-  @Column(name = "criado_em")
-  private LocalDate criadoEm = LocalDate.now();
-
-  @Column(name = "atualizado_em")
-  private LocalDate atualizadoEm = null;
-
-  @OneToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   private Gerente supervisor;
 
   public Funcionario() {
   }
 
   public Funcionario(String cpf, String rg, String nome, String email, LocalDate dataNascimento, String telResidencial,
-      String telCelular, Endereco endereco, String cargo, String carteiraTrabalho, Date dataContratacao,
-      LocalDate dataExoneracao, Gerente supervisor) {
+      String telCelular, Endereco endereco, String cargo, double salario, String carteiraTrabalho,
+      LocalDate dataContratacao, LocalDate dataExoneracao) {
     super(cpf, rg, nome, email, dataNascimento, telResidencial, telCelular, endereco);
 
     this.cargo = cargo;
+    this.salario = salario;
     this.carteiraTrabalho = carteiraTrabalho;
     this.dataContratacao = dataContratacao;
     this.dataExoneracao = dataExoneracao;
-    this.supervisor = supervisor;
   }
 
-  public String getCodigo() {
+  public Integer getCodigo() {
     return this.codigo;
-  }
-
-  public void setCodigo(String codigo) {
-    this.codigo = codigo;
   }
 
   public String getCargo() {
@@ -68,6 +60,16 @@ public class Funcionario extends Pessoa {
 
   public void setCargo(String cargo) {
     this.cargo = cargo;
+    setAtualizadoEm(LocalDate.now());
+  }
+
+  public double getSalario() {
+    return salario;
+  }
+
+  public void setSalario(double salario) {
+    this.salario = salario;
+    setAtualizadoEm(LocalDate.now());
   }
 
   public String getCarteiraTrabalho() {
@@ -76,14 +78,16 @@ public class Funcionario extends Pessoa {
 
   public void setCarteiraTrabalho(String carteiraTrabalho) {
     this.carteiraTrabalho = carteiraTrabalho;
+    setAtualizadoEm(LocalDate.now());
   }
 
-  public Date getDataContratacao() {
+  public LocalDate getDataContratacao() {
     return this.dataContratacao;
   }
 
-  public void setDataContratacao(Date dataContratacao) {
+  public void setDataContratacao(LocalDate dataContratacao) {
     this.dataContratacao = dataContratacao;
+    setAtualizadoEm(LocalDate.now());
   }
 
   public LocalDate getDataExoneracao() {
@@ -92,6 +96,7 @@ public class Funcionario extends Pessoa {
 
   public void setDataExoneracao(LocalDate dataExoneracao) {
     this.dataExoneracao = dataExoneracao;
+    setAtualizadoEm(LocalDate.now());
   }
 
   public Gerente getSupervisor() {
@@ -100,22 +105,7 @@ public class Funcionario extends Pessoa {
 
   public void setSupervisor(Gerente supervisor) {
     this.supervisor = supervisor;
-  }
-
-  public LocalDate getCriadoEm() {
-    return this.criadoEm;
-  }
-
-  public void setCriadoEm(LocalDate criadoEm) {
-    this.criadoEm = criadoEm;
-  }
-
-  public LocalDate getAtualizadoEm() {
-    return this.atualizadoEm;
-  }
-
-  public void setAtualizadoEm(LocalDate atualizadoEm) {
-    this.atualizadoEm = atualizadoEm;
+    setAtualizadoEm(LocalDate.now());
   }
 
   @Override
@@ -127,7 +117,7 @@ public class Funcionario extends Pessoa {
     }
     Funcionario funcionario = (Funcionario) o;
     return Objects.equals(codigo, funcionario.codigo) && Objects.equals(cargo, funcionario.cargo)
-        && Objects.equals(carteiraTrabalho, funcionario.carteiraTrabalho)
+        && salario == funcionario.salario && Objects.equals(carteiraTrabalho, funcionario.carteiraTrabalho)
         && Objects.equals(dataContratacao, funcionario.dataContratacao)
         && Objects.equals(dataExoneracao, funcionario.dataExoneracao)
         && Objects.equals(supervisor, funcionario.supervisor);
@@ -135,15 +125,14 @@ public class Funcionario extends Pessoa {
 
   @Override
   public int hashCode() {
-    return Objects.hash(codigo, cargo, carteiraTrabalho, dataContratacao, dataExoneracao, supervisor);
+    return Objects.hash(codigo, cargo, salario, carteiraTrabalho, dataContratacao, dataExoneracao, supervisor);
   }
 
   @Override
   public String toString() {
-    return "{" + " codigo='" + getCodigo() + "'" + ", cargo='" + getCargo() + "'" + ", carteiraTrabalho='"
-        + getCarteiraTrabalho() + "'" + ", dataContratacao='" + getDataContratacao() + "'" + ", dataExoneracao='"
-        + getDataExoneracao() + "'" + ", criadoEm='" + getCriadoEm() + "'" + ", atualizadoEm='" + getAtualizadoEm()
-        + "'" + ", supervisor='" + getSupervisor() + "'" + "}";
+    return "{" + " codigo='" + getCodigo() + "'" + ", cargo='" + getCargo() + "'" + ", salario='" + getSalario() + "'"
+        + ", carteiraTrabalho='" + getCarteiraTrabalho() + "'" + ", dataContratacao='" + getDataContratacao() + "'"
+        + ", dataExoneracao='" + getDataExoneracao() + "'" + ", supervisor='" + getSupervisor() + "'" + "}";
   }
 
 }
