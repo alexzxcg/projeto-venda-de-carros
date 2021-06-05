@@ -8,6 +8,7 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,7 +24,7 @@ public class Gerente extends Pessoa {
 
   private double salario;
 
-  @OneToMany(mappedBy = "supervisor", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(targetEntity = Funcionario.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
   private List<Funcionario> subordinados = new ArrayList<>();
 
   public Gerente() {
@@ -58,8 +59,8 @@ public class Gerente extends Pessoa {
   }
 
   public void addFuncionario(Funcionario funcionario) {
-    subordinados.add(funcionario);
     funcionario.setSupervisor(this);
+    this.subordinados.add(funcionario);
   }
 
   @Override

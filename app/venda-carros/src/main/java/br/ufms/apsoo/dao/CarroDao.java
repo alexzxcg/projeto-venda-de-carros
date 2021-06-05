@@ -34,4 +34,19 @@ public class CarroDao {
     String jpql = "SELECT c FROM Carro c";
     return em.createQuery(jpql, Carro.class).getResultList();
   }
+  
+  public List<String> buscaMarcas() {
+    String jpql = "SELECT DISTINCT c.marca FROM Carro c";
+    return em.createQuery(jpql, String.class).getResultList();
+  }
+
+  public List<Carro> buscarPorMarca(String marcaCarro) {
+    String jpql = "SELECT c FROM Carro c WHERE c.marca = :marca AND c.status = 'disponivel'";
+    return em.createQuery(jpql, Carro.class).setParameter("marca", marcaCarro).getResultList();
+  }
+
+  public List<Carro> buscarPorModelo(String marcaCarro, String modeloCarro) {
+    String jpql = "SELECT c FROM Carro c WHERE c.marca = :marca AND c.modelo = :modelo AND c.status = 'disponivel'";
+    return em.createQuery(jpql, Carro.class).setParameter("marca", marcaCarro).setParameter("modelo", modeloCarro).getResultList();
+  }
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import br.ufms.apsoo.model.Funcionario;
 import br.ufms.apsoo.model.Gerente;
 
 public class GerenteDao {
@@ -32,12 +31,12 @@ public class GerenteDao {
   }
 
   public List<Gerente> buscarPorTodos() {
-    String jpql = "SELECT c FROM Gerente c";
+    String jpql = "SELECT g FROM Gerente g";
     return em.createQuery(jpql, Gerente.class).getResultList();
   }
 
-  public List<Gerente> buscarPorCpf(String cpf) {
-    String jpql = "SELECT c FROM Gerente WHERE c.cpf = ?1";
-    return em.createQuery(jpql, Gerente.class).setParameter(1, cpf).getResultList();
+  public Gerente buscarPorCpf(String cpf) {
+    String jpql = "SELECT g FROM Gerente g WHERE g.cpf = :gerente";
+    return em.createQuery(jpql, Gerente.class).setParameter("gerente", cpf).getSingleResult();
   }
 }

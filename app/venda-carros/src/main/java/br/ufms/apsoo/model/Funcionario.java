@@ -27,27 +27,24 @@ public class Funcionario extends Pessoa {
   private String carteiraTrabalho;
 
   @Column(name = "carteira_contratacao")
-  private LocalDate dataContratacao;
+  private LocalDate dataContratacao = LocalDate.now();
 
   @Column(name = "data_exoneracao")
-  private LocalDate dataExoneracao;
+  private LocalDate dataExoneracao = null;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
   private Gerente supervisor;
 
   public Funcionario() {
   }
 
   public Funcionario(String cpf, String rg, String nome, String email, LocalDate dataNascimento, String telResidencial,
-      String telCelular, Endereco endereco, String cargo, double salario, String carteiraTrabalho,
-      LocalDate dataContratacao, LocalDate dataExoneracao) {
+      String telCelular, Endereco endereco, String cargo, double salario, String carteiraTrabalho) {
     super(cpf, rg, nome, email, dataNascimento, telResidencial, telCelular, endereco);
 
     this.cargo = cargo;
     this.salario = salario;
     this.carteiraTrabalho = carteiraTrabalho;
-    this.dataContratacao = dataContratacao;
-    this.dataExoneracao = dataExoneracao;
   }
 
   public Integer getCodigo() {
