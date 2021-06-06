@@ -5,7 +5,19 @@
  */
 package br.ufms.apsoo.screens.Telas;
 
+import br.ufms.apsoo.controllers.CarroController;
+import br.ufms.apsoo.controllers.ClienteController;
+import br.ufms.apsoo.model.Carro;
+import br.ufms.apsoo.model.Cliente;
+import java.awt.event.KeyEvent;
+import static java.awt.event.KeyEvent.VK_ENTER;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JOptionPane;
+import javax.xml.bind.DatatypeConverter;
+
 
 /**
  *
@@ -13,9 +25,12 @@ import javax.swing.JOptionPane;
  */
 public class TelaRealizarVenda extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaRealizarVenda
-     */
+    private ClienteController cliente = new ClienteController();
+    private CarroController carroController = new CarroController();
+    private String marcaSelecionada;
+    private String modeloDeCarroSelecionado;
+    private String valorDoCarro = "50000";
+    
     public TelaRealizarVenda() {
         initComponents();
     }
@@ -35,7 +50,6 @@ public class TelaRealizarVenda extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         caixaTextoCPF = new javax.swing.JTextField();
         caixaTextoNome = new javax.swing.JTextField();
         marcaBox = new javax.swing.JComboBox<>();
@@ -53,6 +67,7 @@ public class TelaRealizarVenda extends javax.swing.JFrame {
         formaPagamentoBox = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         caixaTextoCodigoGerente = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -73,12 +88,14 @@ public class TelaRealizarVenda extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel5.setText("Modelo:");
 
-        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel6.setText("Forma De Pagamento:");
-
         caixaTextoCPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 caixaTextoCPFActionPerformed(evt);
+            }
+        });
+        caixaTextoCPF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                caixaTextoCPFKeyPressed(evt);
             }
         });
 
@@ -89,6 +106,16 @@ public class TelaRealizarVenda extends javax.swing.JFrame {
         });
 
         marcaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        marcaBox.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                marcaBoxMouseClicked(evt);
+            }
+        });
+        marcaBox.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                marcaBoxComponentShown(evt);
+            }
+        });
         marcaBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 marcaBoxActionPerformed(evt);
@@ -96,6 +123,11 @@ public class TelaRealizarVenda extends javax.swing.JFrame {
         });
 
         modeloBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        modeloBox.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modeloBoxMouseClicked(evt);
+            }
+        });
         modeloBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modeloBoxActionPerformed(evt);
@@ -114,7 +146,12 @@ public class TelaRealizarVenda extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel8.setText("Parcelas:");
 
-        vezesBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0x", "12x", "24x", "36x", "68x", "72x" }));
+        vezesBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "12", "24", "36", "68", "72" }));
+        vezesBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vezesBoxActionPerformed(evt);
+            }
+        });
 
         botaoConfirmar.setText("Confirmar");
         botaoConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -134,9 +171,20 @@ public class TelaRealizarVenda extends javax.swing.JFrame {
         jLabel9.setText("Valor do Carro:");
 
         caixaTextoValorDoCarro.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        caixaTextoValorDoCarro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caixaTextoValorDoCarroActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel10.setText("Total:");
+
+        caixaTextoValorTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caixaTextoValorTotalActionPerformed(evt);
+            }
+        });
 
         formaPagamentoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Parcelado", "Dinheiro", "Cartão De Crédito", "Cartão De Débito", "Cheque" }));
         formaPagamentoBox.addActionListener(new java.awt.event.ActionListener() {
@@ -148,69 +196,81 @@ public class TelaRealizarVenda extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel11.setText("Código do Gerente:");
 
+        jLabel12.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel12.setText("Forma De Pagamento:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(129, 129, 129))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(74, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel11))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(campoTextoValorEntrada)
-                                    .addComponent(vezesBox, 0, 250, Short.MAX_VALUE)
-                                    .addComponent(caixaTextoValorTotal)
-                                    .addComponent(caixaTextoCodigoGerente)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(modeloBox, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(caixaTextoCPF)
-                                            .addComponent(caixaTextoNome)
-                                            .addComponent(marcaBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(formaPagamentoBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(caixaTextoValorDoCarro, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)))))
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(71, 71, 71)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(caixaTextoCPF, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(caixaTextoNome, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(marcaBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(modeloBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(caixaTextoValorDoCarro, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addGap(76, 76, 76)))))
+                        .addGap(54, 54, 54))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addComponent(botaoConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(225, 225, 225)
-                        .addComponent(botaoCancelar)))
-                .addGap(89, 89, 89))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(botaoConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addGap(109, 109, 109)
+                                                    .addComponent(jLabel10))
+                                                .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                        .addGap(17, 17, 17))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addGap(18, 18, 18)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(vezesBox, 0, 250, Short.MAX_VALUE)
+                                    .addComponent(caixaTextoCodigoGerente)
+                                    .addComponent(caixaTextoValorTotal)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel12))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(formaPagamentoBox, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(campoTextoValorEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 172, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
                 .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(caixaTextoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(caixaTextoCPF))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -222,31 +282,32 @@ public class TelaRealizarVenda extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(modeloBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6)
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(caixaTextoValorDoCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(caixaTextoValorDoCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(formaPagamentoBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
+                        .addGap(7, 7, 7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(campoTextoValorEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)))
                     .addComponent(jLabel9))
-                .addGap(13, 13, 13)
-                .addComponent(formaPagamentoBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoTextoValorEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(vezesBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addGap(15, 15, 15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(caixaTextoCodigoGerente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(caixaTextoValorTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(caixaTextoValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoConfirmar)
@@ -257,8 +318,9 @@ public class TelaRealizarVenda extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void caixaTextoCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaTextoCPFActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_caixaTextoCPFActionPerformed
 
     private void caixaTextoNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaTextoNomeActionPerformed
@@ -266,11 +328,11 @@ public class TelaRealizarVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_caixaTextoNomeActionPerformed
 
     private void marcaBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcaBoxActionPerformed
-        // TODO add your handling code here:
+       marcaSelecionada = marcaBox.getSelectedItem().toString();
     }//GEN-LAST:event_marcaBoxActionPerformed
 
     private void modeloBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeloBoxActionPerformed
-        // TODO add your handling code here:
+        modeloDeCarroSelecionado= modeloBox.getSelectedItem().toString();
     }//GEN-LAST:event_modeloBoxActionPerformed
 
     private void campoTextoValorEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTextoValorEntradaActionPerformed
@@ -303,8 +365,129 @@ public class TelaRealizarVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void formaPagamentoBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formaPagamentoBoxActionPerformed
-        // TODO add your handling code here:
+        switch(formaPagamentoBox.getSelectedItem().toString()){
+            case "Parcelado":
+                caixaTextoCodigoGerente.setText("");
+                campoTextoValorEntrada.setText("0");
+                caixaTextoValorDoCarro.setText(valorDoCarro);
+                caixaTextoValorDoCarro.setEnabled(false);
+                campoTextoValorEntrada.setEnabled(true);
+                vezesBox.setEnabled(true);
+                caixaTextoCodigoGerente.setEnabled(false);
+                caixaTextoValorTotal.setEnabled(false);
+                
+                break;
+                
+            case "Dinheiro":
+                caixaTextoCodigoGerente.setText("");
+                campoTextoValorEntrada.setText("");
+                caixaTextoValorDoCarro.setText(valorDoCarro);
+                caixaTextoValorDoCarro.setEnabled(false);
+                campoTextoValorEntrada.setEnabled(false);
+                vezesBox.setEnabled(false);
+                caixaTextoCodigoGerente.setEnabled(false);
+                caixaTextoValorTotal.setText(valorDoCarro);
+                caixaTextoValorTotal.setEnabled(false);
+                
+                break;
+            case  "Cartão De Crédito":
+                campoTextoValorEntrada.setText("0");
+                caixaTextoCodigoGerente.setText("");
+                caixaTextoValorDoCarro.setText(valorDoCarro);
+                caixaTextoValorDoCarro.setEnabled(false);
+                campoTextoValorEntrada.setEnabled(true);
+                vezesBox.setEnabled(true);
+                caixaTextoCodigoGerente.setEnabled(false);
+                caixaTextoValorTotal.setEnabled(false);
+                
+                break;
+            case "Cartão De Débito":
+                caixaTextoCodigoGerente.setText("");
+                campoTextoValorEntrada.setText("");
+                caixaTextoValorDoCarro.setText(valorDoCarro);
+                caixaTextoValorDoCarro.setEnabled(false);
+                campoTextoValorEntrada.setEnabled(false);
+                vezesBox.setEnabled(false);
+                caixaTextoCodigoGerente.setEnabled(false);
+                caixaTextoValorTotal.setText(valorDoCarro);
+                caixaTextoValorTotal.setEnabled(false);
+                
+                break;
+            case "Cheque":
+                campoTextoValorEntrada.setText("");
+                caixaTextoValorDoCarro.setText(valorDoCarro);
+                caixaTextoValorDoCarro.setEnabled(false);
+                campoTextoValorEntrada.setEnabled(false);
+                vezesBox.setEnabled(false);
+                caixaTextoCodigoGerente.setEnabled(true);
+                caixaTextoValorTotal.setText(valorDoCarro);
+                caixaTextoValorTotal.setEnabled(false);
+            default:
+                break;
+        }
     }//GEN-LAST:event_formaPagamentoBoxActionPerformed
+
+    private void caixaTextoValorDoCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaTextoValorDoCarroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_caixaTextoValorDoCarroActionPerformed
+
+    private void caixaTextoValorTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaTextoValorTotalActionPerformed
+             
+    }//GEN-LAST:event_caixaTextoValorTotalActionPerformed
+
+    private void vezesBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vezesBoxActionPerformed
+        if(formaPagamentoBox.getSelectedItem().equals("Parcelado") || formaPagamentoBox.getSelectedItem().equals("Cartão De Crédito")){
+            String selecione = vezesBox.getSelectedItem().toString();
+            if(selecione != "Selecione"){
+                String valorCarro;
+                valorCarro = caixaTextoValorDoCarro.getText();
+                String valorEntrada;
+                valorEntrada = campoTextoValorEntrada.getText();
+        
+                double vC = Double.parseDouble(valorCarro);
+                double vE = Double.parseDouble(valorEntrada);
+            
+                String numeroDeVezes;
+                numeroDeVezes = vezesBox.getSelectedItem().toString();
+            
+                int nV = Integer.parseInt(numeroDeVezes);
+          
+                double valorTemporario = (vC - vE)/nV;
+            
+                caixaTextoValorTotal.setText(String.format("R$ %.2f", valorTemporario));
+            }
+        }
+    }//GEN-LAST:event_vezesBoxActionPerformed
+
+    private void caixaTextoCPFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caixaTextoCPFKeyPressed
+        if(evt.getKeyCode() == VK_ENTER){
+            Cliente c1 = cliente.buscar(caixaTextoCPF.getText());
+            if(c1 == null){
+                JOptionPane.showMessageDialog(null,"Cliente não cadastrado",null, WIDTH);
+            }
+            else{
+                caixaTextoNome.setText(c1.getNome());
+                caixaTextoNome.setEnabled(false);
+            }
+        }
+    }//GEN-LAST:event_caixaTextoCPFKeyPressed
+    private void marcaCarro(){
+        List<String> marcas = carroController.buscaMarcas();
+        marcaBox.removeAllItems();
+        marcas.forEach(c -> {marcaBox.addItem(c);});
+    }
+    private void modeloCarro(){
+        List<Carro> modelos = carroController.buscaMarcaCarro(marcaSelecionada);
+        modeloBox.removeAllItems();
+        modelos.forEach(c -> {modeloBox.addItem(c.getModelo());});
+    }
+    private void marcaBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_marcaBoxMouseClicked
+        marcaCarro();
+    }//GEN-LAST:event_marcaBoxMouseClicked
+
+    private void modeloBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modeloBoxMouseClicked
+        modeloCarro();
+    }//GEN-LAST:event_modeloBoxMouseClicked
 
     /**
      * @param args the command line arguments
@@ -355,11 +538,11 @@ public class TelaRealizarVenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
