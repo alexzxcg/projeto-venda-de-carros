@@ -26,8 +26,8 @@ public class ClienteDao {
     this.em.remove(cliente);
   }
 
-  public Cliente buscarPorId(Long id) {
-    return em.find(Cliente.class, id);
+  public Cliente buscarPorCpf(String cpf) {
+    return em.find(Cliente.class, cpf);
   }
 
   public List<Cliente> buscarPorTodos() {
@@ -35,8 +35,4 @@ public class ClienteDao {
     return em.createQuery(jpql, Cliente.class).getResultList();
   }
 
-  public Cliente buscarPorCpf(String clienteCpf) {
-    String jpql = "SELECT c FROM Cliente c WHERE c.cpf = ?1";
-    return em.createQuery(jpql, Cliente.class).setParameter(1, clienteCpf).getSingleResult();
-  }
 }

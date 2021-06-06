@@ -68,7 +68,7 @@ public class CarroController {
     }
   }
 
-  public Carro buscarCarro(Long id) {
+  public Carro buscarCarro(Integer id) {
     try {
       return carroDao.buscarPorId(id);
     } catch (Exception e) {

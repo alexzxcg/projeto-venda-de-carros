@@ -26,7 +26,7 @@ public class EnderecoDao {
     this.em.remove(endereco);
   }
 
-  public Endereco buscarPorId(Long id) {
+  public Endereco buscarPorId(Integer id) {
     return em.find(Endereco.class, id);
   }
 

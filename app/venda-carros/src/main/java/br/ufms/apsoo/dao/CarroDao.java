@@ -13,21 +13,21 @@ public class CarroDao {
     this.em = em;
   }
 
-  public void cadastrar(Carro cliente) {
-    this.em.persist(cliente);
+  public void cadastrar(Carro carro) {
+    this.em.persist(carro);
   }
 
-  public void atualizar(Carro cliente) {
-    this.em.merge(cliente);
+  public void atualizar(Carro carro) {
+    this.em.merge(carro);
   }
 
-  public void remover(Carro cliente) {
-    cliente = em.merge(cliente);
-    this.em.remove(cliente);
+  public void remover(Carro carro) {
+    carro = em.merge(carro);
+    this.em.remove(carro);
   }
 
-  public Carro buscarPorId(Long id) {
-    return em.find(Carro.class, id);
+  public Carro buscarPorId(Integer codigo) {
+    return em.find(Carro.class, codigo);
   }
 
   public List<Carro> buscarPorTodos() {

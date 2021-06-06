@@ -26,8 +26,8 @@ public class GerenteDao {
     this.em.remove(cliente);
   }
 
-  public Gerente buscarPorId(Long id) {
-    return em.find(Gerente.class, id);
+  public Gerente buscarPorCpf(String cpf) {
+    return em.find(Gerente.class, cpf);
   }
 
   public List<Gerente> buscarPorTodos() {
@@ -35,8 +35,4 @@ public class GerenteDao {
     return em.createQuery(jpql, Gerente.class).getResultList();
   }
 
-  public Gerente buscarPorCpf(String cpf) {
-    String jpql = "SELECT g FROM Gerente g WHERE g.cpf = :gerente";
-    return em.createQuery(jpql, Gerente.class).setParameter("gerente", cpf).getSingleResult();
-  }
 }

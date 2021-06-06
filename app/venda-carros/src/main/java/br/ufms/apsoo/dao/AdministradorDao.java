@@ -13,30 +13,30 @@ public class AdministradorDao {
     this.em = em;
   }
 
-  public void cadastrar(Administrador cliente) {
-    this.em.persist(cliente);
+  public void cadastrar(Administrador admin) {
+    this.em.persist(admin);
   }
 
-  public void atualizar(Administrador cliente) {
-    this.em.merge(cliente);
+  public void atualizar(Administrador admin) {
+    this.em.merge(admin);
   }
 
-  public void remover(Administrador cliente) {
-    cliente = em.merge(cliente);
-    this.em.remove(cliente);
+  public void remover(Administrador admin) {
+    admin = em.merge(admin);
+    this.em.remove(admin);
   }
 
-  public Administrador buscarPorId(Long id) {
-    return em.find(Administrador.class, id);
+  public Administrador buscarPorCpf(String cpf) {
+    return em.find(Administrador.class, cpf);
   }
 
   public List<Administrador> buscarPorTodos() {
-    String jpql = "SELECT c FROM Administrador c";
+    String jpql = "SELECT a FROM Administrador a";
     return em.createQuery(jpql, Administrador.class).getResultList();
   }
 
-  public List<Administrador> buscarPorCpf(String cpf) {
-    String jpql = "SELECT c FROM Administrador WHERE c.cpf = ?1";
-    return em.createQuery(jpql, Administrador.class).setParameter(1, cpf).getResultList();
-  }
+  // public List<Administrador> buscarPorCpf(String cpf) {
+  //   String jpql = "SELECT a FROM Administrador WHERE a.cpf = ?1";
+  //   return em.createQuery(jpql, Administrador.class).setParameter(1, cpf).getResultList();
+  // }
 }

@@ -26,18 +26,13 @@ public class FuncionarioDao {
     this.em.remove(cliente);
   }
 
-  public Funcionario buscarPorId(Long id) {
-    return em.find(Funcionario.class, id);
+  public Funcionario buscarPorCpf(String cpf) {
+    return em.find(Funcionario.class, cpf);
   }
 
   public List<Funcionario> buscarPorTodos() {
-    String jpql = "SELECT c FROM Funcionario c";
+    String jpql = "SELECT f FROM Funcionario f";
     return em.createQuery(jpql, Funcionario.class).getResultList();
-  }
-
-  public List<Funcionario> buscarPorCpf(String cpf) {
-    String jpql = "SELECT c FROM Funcionario WHERE c.cpf = ?1";
-    return em.createQuery(jpql, Funcionario.class).setParameter(1, cpf).getResultList();
   }
 
   public List<Funcionario> buscarSubordinados(String gerenteCpf) {
