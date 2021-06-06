@@ -1,0 +1,52 @@
+{
+  "gerentes": [
+    {
+      "nome": "Davi Enrico Novaes",
+      "cpf": "44497902358",
+      "rg": "293472452",
+      "data_nasc": "1992-03-22",
+      "email": "davienriconovaes_@ciaimoveissjc.com",
+      "cep": "24344551",
+      "endereco": "Rua Cinquenta e Um",
+      "numero": 553,
+      "bairro": "Engenho do Mato",
+      "cidade": "Niterói",
+      "estado": "RJ",
+      "telefone_fixo": "2126771067",
+      "celular": "21987179284",
+      "salario": 3388.88
+    },
+    {
+      "nome": "Kauê Renan Roberto Rezende",
+      "cpf": "28936864351",
+      "rg": "487323002",
+      "data_nasc": "1973-07-21",
+      "email": "kauerenanrobertorezende_@iesa.com.br",
+      "cep": "49038010",
+      "endereco": "Praça Major Bernardino Dantas",
+      "numero": 966,
+      "bairro": "Atalaia",
+      "cidade": "Aracaju",
+      "estado": "SE",
+      "telefone_fixo": "7937285019",
+      "celular": "79998713268",
+      "salario": 2717.4
+    },
+    {
+      "nome": "Bruna Ayla Letícia Lopes",
+      "cpf": "48710146903",
+      "rg": "444256593",
+      "data_nasc": "1954-05-04",
+      "email": "bbrunaaylaleticialopes@disparco.com.br",
+      "cep": "60337320",
+      "endereco": "Rua Xavante",
+      "numero": 655,
+      "bairro": "Cristo Redentor",
+      "cidade": "Fortaleza",
+      "estado": "CE",
+      "telefone_fixo": "8537481130",
+      "celular": "85998966724",
+      "salario": 2434.73
+    }
+  ]
+}
