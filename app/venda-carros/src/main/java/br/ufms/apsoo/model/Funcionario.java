@@ -1,11 +1,16 @@
 package br.ufms.apsoo.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Generated;
@@ -32,6 +37,9 @@ public class Funcionario extends Pessoa {
 
   @ManyToOne
   private Gerente supervisor;
+
+  @OneToMany(targetEntity = Venda.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+  private List<Venda> vendas = new ArrayList<>();
 
   public Funcionario() {
   }
@@ -103,6 +111,19 @@ public class Funcionario extends Pessoa {
     setAtualizadoEm(LocalDate.now());
   }
 
+  public List<Venda> getVendas() {
+    return vendas;
+  }
+
+  public void setVendas(List<Venda> vendas) {
+    this.vendas = vendas;
+  }
+
+  public void addVenda(Venda venda) {
+    venda.setFuncionario(this);
+    this.vendas.add(venda);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (o == this)
@@ -115,19 +136,20 @@ public class Funcionario extends Pessoa {
         && salario == funcionario.salario && Objects.equals(carteiraTrabalho, funcionario.carteiraTrabalho)
         && Objects.equals(dataContratacao, funcionario.dataContratacao)
         && Objects.equals(dataExoneracao, funcionario.dataExoneracao)
-        && Objects.equals(supervisor, funcionario.supervisor);
+        && Objects.equals(supervisor, funcionario.supervisor) && Objects.equals(vendas, funcionario.vendas);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(codigo, cargo, salario, carteiraTrabalho, dataContratacao, dataExoneracao, supervisor);
+    return Objects.hash(codigo, cargo, salario, carteiraTrabalho, dataContratacao, dataExoneracao, supervisor, vendas);
   }
 
   @Override
   public String toString() {
     return "{" + " codigo='" + getCodigo() + "'" + ", cargo='" + getCargo() + "'" + ", salario='" + getSalario() + "'"
         + ", carteiraTrabalho='" + getCarteiraTrabalho() + "'" + ", dataContratacao='" + getDataContratacao() + "'"
-        + ", dataExoneracao='" + getDataExoneracao() + "'" + ", supervisor='" + getSupervisor() + "'" + "}";
+        + ", dataExoneracao='" + getDataExoneracao() + "'" + ", supervisor='" + getSupervisor() + "'" + ", vendas='"
+        + getVendas() + "'" + "}";
   }
 
 }

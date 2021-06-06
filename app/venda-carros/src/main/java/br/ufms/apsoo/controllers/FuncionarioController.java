@@ -18,7 +18,7 @@ public class FuncionarioController {
   private GerenteDao gerenteDao = new GerenteDao(em);
   private EnderecoDao enderecoDao = new EnderecoDao(em);
 
-  public boolean cadastrarFuncionario(String cpf, String rg, String nome, String email, LocalDate dataNascimento,
+  public Funcionario cadastrarFuncionario(String cpf, String rg, String nome, String email, LocalDate dataNascimento,
       String telResidencial, String telCelular, String cargo, double salario, String carteiraTrabalho, String gerenteCpf,
       String cep, String rua, int numero, String bairro, String cidade, String estado, String complemento) {
 
@@ -36,10 +36,10 @@ public class FuncionarioController {
       em.getTransaction().commit();
     } catch (Exception e) {
       System.err.println(e);
-      return false;
+      return null;
     }
 
-    return true;
+    return funcionario;
   }
 
 }

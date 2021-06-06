@@ -15,7 +15,7 @@ public class GerenteController {
   private GerenteDao gerenteDao = new GerenteDao(em);
   private EnderecoDao enderecoDao = new EnderecoDao(em);
 
-  public boolean cadastrarGerente(String cpf, String rg, String nome, String email, LocalDate dataNascimento,
+  public Gerente cadastrarGerente(String cpf, String rg, String nome, String email, LocalDate dataNascimento,
       String telResidencial, String telCelular, double salario, String cep, String rua, int numero, String bairro,
       String cidade, String estado, String complemento) {
 
@@ -29,10 +29,10 @@ public class GerenteController {
       em.getTransaction().commit();
     } catch (Exception e) {
       System.err.println(e);
-      return false;
+      return null;
     }
 
-    return true;
+    return gerente;
   }
 
   

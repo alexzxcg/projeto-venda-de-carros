@@ -18,7 +18,7 @@ public class ClienteController {
   public ClienteController() {
   }
 
-  public boolean cadastrarCliente(String cpf, String rg, String nome, String email, LocalDate dataNascimento,
+  public Cliente cadastrarCliente(String cpf, String rg, String nome, String email, LocalDate dataNascimento,
       String telResidencial, String telCelular, double renda, String cep, String rua, int numero, String bairro,
       String cidade, String estado, String complemento) {
 
@@ -33,10 +33,10 @@ public class ClienteController {
       // em.close();
     } catch (Exception e) {
       System.err.println(e);
-      return false;
+      return null;
     }
 
-    return true;
+    return cliente;
   }
 
   public Cliente buscar(String clienteCpf) {
