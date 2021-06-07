@@ -1,0 +1,60 @@
+version: "3"
+
+volumes:
+  pgadmin-data:
+
+services:
+  app:
+    container_name: java-APSOO-Venda-Carros
+    build:
+      context: .
+      dockerfile: dockerfiles/app.Dockerfile
+      args:
+        VARIANT: 11
+        INSTALL_MAVEN: "true"
+        INSTALL_GRADLE: "true"
+        INSTALL_NODE: "true"
+        NODE_VERSION: "lts/*"
+        USER_UID: 1000
+        USER_GID: 1000
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - ..:/workspace:cached
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    command: sleep infinity
+
+  dbDev:
+    container_name: postgres-dev-APSOO-Venda-Carros
+    image: "ufms-apsoo-venda-carros_devcontainer_dbdev"
+    build:
+      context: .
+      dockerfile: dockerfiles/dbDev.Dockerfile
+    env_file: env/db.dev.env
+    depends_on:
+      - app
+    restart: unless-stopped
+
+  # dbTest:
+  #   container_name: postgres-test-APSOO-Venda-Carros
+  #   image: postgres:latest
+  #   env_file: env/db.test.env
+  #   depends_on:
+  #     - app
+  #   restart: unless-stopped
+
+  pgAdmin:
+    container_name: pgadmin-APSOO-Venda-Carros
+    image: dpage/pgadmin4:latest
+    env_file: env/pgadmin.env
+    ports:
+      - 8080:80
+    depends_on:
+      - dbDev
+      # - dbTest
+    volumes:
+      - ./config/servers.json:/pgadmin4/servers.json
+      - pgadmin-data:/var/lib/pgadmin
+      - pgadmin-data:/certs/server.cert
+      - pgadmin-data:/certs/server.key
+    restart: unless-stopped

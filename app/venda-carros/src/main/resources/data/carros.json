@@ -1,0 +1,144 @@
+{
+  "carros": [
+    {
+      "Marca": "TAC",
+      "Modelo": "Stark 2.3 4WD 127cv TDI Diesel 3p",
+      "Ano": 2010,
+      "Cor": "Bege",
+      "Valor": 267909.37
+    },
+    {
+      "Marca": "GM - Chevrolet",
+      "Modelo": "S10 Pick-Up LS 2.8 TDI 4x2 CD Dies. Mec.",
+      "Ano": 2013,
+      "Cor": "Cinza",
+      "Valor": 264797.24
+    },
+    {
+      "Marca": "FOTON",
+      "Modelo": "AUMARK 3.5 - 11ST 2.8 4x2 TB Diesel",
+      "Ano": 2014,
+      "Cor": "Vermelho",
+      "Valor": 207094.98
+    },
+    {
+      "Marca": "Rover",
+      "Modelo": "Mini Cooper 1.3",
+      "Ano": 1992,
+      "Cor": "Branco",
+      "Valor": 205944.94
+    },
+    {
+      "Marca": "Dodge",
+      "Modelo": "JOURNEY RT 2.7 V6 185cv Aut.",
+      "Ano": 2010,
+      "Cor": "Azul",
+      "Valor": 293229.56
+    },
+    {
+      "Marca": "Isuzu",
+      "Modelo": "Amigo 2.3 4x2/4x4",
+      "Ano": 1992,
+      "Cor": "Vermelho",
+      "Valor": 65302.22
+    },
+    {
+      "Marca": "Fyber",
+      "Modelo": "Buggy 2000W 1.6 8V",
+      "Ano": 2016,
+      "Cor": "Branco",
+      "Valor": 179552.18
+    },
+    {
+      "Marca": "Fyber",
+      "Modelo": "Buggy 2000W 1.8 8V/ 1.8 8V Flex",
+      "Ano": 2004,
+      "Cor": "Laranja",
+      "Valor": 183382.72
+    },
+    {
+      "Marca": "Seat",
+      "Modelo": "Cordoba Vario 1.6L",
+      "Ano": 2000,
+      "Cor": "Preto",
+      "Valor": 258047.06
+    },
+    {
+      "Marca": "RAM",
+      "Modelo": "2500 LARAMIE SLT TROPIV. 6.7 4x4 Diesel",
+      "Ano": 2012,
+      "Cor": "Branco",
+      "Valor": 194458.07
+    },
+    {
+      "Marca": "MINI",
+      "Modelo": "COOPER John Works 1.6 Aut.",
+      "Ano": 2013,
+      "Cor": "Bege",
+      "Valor": 190073.43
+    },
+    {
+      "Marca": "Dodge",
+      "Modelo": "Ram 2500 TROPIVAN 5.9 SLT Exec.TDI Dies.",
+      "Ano": 2010,
+      "Cor": "Dourado",
+      "Valor": 53334.17
+    },
+    {
+      "Marca": "GEELY",
+      "Modelo": "GC2 1.0 12V 68cv 5p",
+      "Ano": 2015,
+      "Cor": "Branco",
+      "Valor": 181358.61
+    },
+    {
+      "Marca": "Mercury",
+      "Modelo": "Mystique GS 2.5 V6 Mec.",
+      "Ano": 1995,
+      "Cor": "Laranja",
+      "Valor": 164250.91
+    },
+    {
+      "Marca": "Toyota",
+      "Modelo": "Hilux CD SR 4x2 2.7 16V Mec.",
+      "Ano": 2009,
+      "Cor": "Laranja",
+      "Valor": 132988.73
+    },
+    {
+      "Marca": "Hyundai",
+      "Modelo": "H100 GS (12 lugares)",
+      "Ano": 1996,
+      "Cor": "Bege",
+      "Valor": 141160.0
+    },
+    {
+      "Marca": "Mercury",
+      "Modelo": "Mystique GS 2.5 V6 Mec.",
+      "Ano": 1995,
+      "Cor": "Cinza",
+      "Valor": 298162.69
+    },
+    {
+      "Marca": "SSANGYONG",
+      "Modelo": "Rexton II 3.2 V6 24V 220cv Aut.",
+      "Ano": 2007,
+      "Cor": "Prata",
+      "Valor": 163348.46
+    },
+    {
+      "Marca": "JINBEI",
+      "Modelo": "TOPIC VAN STD 2.0 16V 4p",
+      "Ano": 2011,
+      "Cor": "Branco",
+      "Valor": 144772.56
+    },
+    {
+      "Marca": "Suzuki",
+      "Modelo": "SX4 S-CROSS GLX 1.6 16V Aut.",
+      "Ano": 2016,
+      "Cor": "Azul",
+      "Valor": 151898.0
+    }
+  ]
+}
