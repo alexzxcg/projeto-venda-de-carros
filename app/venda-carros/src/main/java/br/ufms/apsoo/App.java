@@ -13,6 +13,8 @@ import br.ufms.apsoo.controllers.CarroController;
 import br.ufms.apsoo.controllers.ClienteController;
 import br.ufms.apsoo.controllers.FuncionarioController;
 import br.ufms.apsoo.controllers.GerenteController;
+import br.ufms.apsoo.controllers.VendaController;
+import br.ufms.apsoo.screens.Telas.Tela;
 import br.ufms.apsoo.util.ReadDump;
 
 public class App {
@@ -24,17 +26,24 @@ public class App {
     Path pathFile;
     JSONArray arrayJSON;
 
+    String mainPath = "/workspace/app/venda-carros/src/main/resources/data/";
+    String gerentesJSON = mainPath + "gerentes.json";
+    String funcionariosJSON = mainPath + "funcionarios.json";
+    String carrosJSON = mainPath + "carros.json";
+    String clientesJSON = mainPath + "clientes.json";
+
     // Controllers
     GerenteController gerenteController = new GerenteController();
     FuncionarioController funcionarioContoller = new FuncionarioController();
     CarroController carroController = new CarroController();
     ClienteController clienteController = new ClienteController();
+    VendaController vendaController = new VendaController();
 
     // Gerente
     String[] cpfGerentes = { "44497902358", "28936864351", "48710146903" };
 
     // Instancia Gerente
-    pathFile = Paths.get("/workspace/app/venda-carros/src/main/resources/data/gerentes.json");
+    pathFile = Paths.get(gerentesJSON);
     arrayJSON = readDumpJSON.getJsonArray(pathFile, "gerentes");
     for (Object a : arrayJSON) {
       try {
@@ -72,7 +81,7 @@ public class App {
     arrayJSON = null;
 
     // Instancia Funcionario
-    pathFile = Paths.get("/workspace/app/venda-carros/src/main/resources/data/funcionarios.json");
+    pathFile = Paths.get(funcionariosJSON);
     arrayJSON = readDumpJSON.getJsonArray(pathFile, "funcionarios");
     for (Object a : arrayJSON) {
       try {
@@ -114,7 +123,7 @@ public class App {
     arrayJSON = null;
 
     // Instancia Carro
-    pathFile = Paths.get("/workspace/app/venda-carros/src/main/resources/data/carros.json");
+    pathFile = Paths.get(carrosJSON);
     arrayJSON = readDumpJSON.getJsonArray(pathFile, "carros");
     for (Object a : arrayJSON) {
       try {
@@ -140,7 +149,7 @@ public class App {
     arrayJSON = null;
 
     // Instancia Cliente
-    pathFile = Paths.get("/workspace/app/venda-carros/src/main/resources/data/clientes.json");
+    pathFile = Paths.get(clientesJSON);
     arrayJSON = readDumpJSON.getJsonArray(pathFile, "clientes");
     for (Object a : arrayJSON) {
       try {
@@ -177,5 +186,17 @@ public class App {
     // Clean variables
     pathFile = null;
     arrayJSON = null;
+
+    Tela tela = new Tela();
+    tela.setVisible(true);
+
+    /**
+     * // Instância Venda double valorEntrada = 10000; double valorTotal =
+     * 267909.37; String formaPagamento = "Parcelado"; int numParcelas = 16; String
+     * cpfFuncionario = "68759145064"; String cpfCliente = "52759319997"; int
+     * codigoCarro = 23; vendaController.iniciarNovaVenda(valorEntrada, valorTotal,
+     * formaPagamento, numParcelas, cpfFuncionario, cpfCliente, codigoCarro);
+     */
+
   }
 }

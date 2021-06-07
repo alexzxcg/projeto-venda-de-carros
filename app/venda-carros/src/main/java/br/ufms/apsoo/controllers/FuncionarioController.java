@@ -42,4 +42,13 @@ public class FuncionarioController {
     return funcionario;
   }
 
+  public Funcionario buscar(String funcionarioCpf) {
+    try {
+      return funcionarioDao.buscarPorCpf(funcionarioCpf);
+    } catch (Exception e) {
+      System.err.println(e);
+      return null;
+    }
+  }
+
 }
