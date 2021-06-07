@@ -18,6 +18,7 @@ public class VendaController {
   private FuncionarioDao funcionarioDao = new FuncionarioDao(em);
   private ClienteDao clienteDao = new ClienteDao(em);
   private CarroDao carroDao = new CarroDao(em);
+  private CarroController carroController = new CarroController();
 
   public VendaController() {
   }
@@ -29,10 +30,14 @@ public class VendaController {
     Funcionario funcionario = funcionarioDao.buscarPorCpf(cpfFuncionario);
     Cliente cliente = clienteDao.buscarPorCpf(cpfCliente);
     Carro carro = carroDao.buscarPorId(codigoCarro);
+    
+    carro.setStatus("vendido");
+    carroController.atualizarCarro(carro);
 
     funcionario.addVenda(venda);
     cliente.addCompra(venda);
     venda.setCarro(carro);
+
 
     try {
       em.getTransaction().begin();
