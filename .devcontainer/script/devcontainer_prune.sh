@@ -8,4 +8,4 @@ printf "\nremoving volumes...\n"
 docker volume prune -f
 
 printf "\nremoving images...\n"
-docker image rm ufms-apsoo-venda-carros_devcontainer_app
+#docker image rm ufms-apsoo-venda-carros_devcontainer_app ufms-apsoo-venda-carros_devcontainer_dbdev

@@ -13,7 +13,6 @@ import br.ufms.apsoo.controllers.CarroController;
 import br.ufms.apsoo.controllers.ClienteController;
 import br.ufms.apsoo.controllers.FuncionarioController;
 import br.ufms.apsoo.controllers.GerenteController;
-import br.ufms.apsoo.controllers.VendaController;
 import br.ufms.apsoo.screens.Telas.Tela;
 import br.ufms.apsoo.util.ReadDump;
 
@@ -37,7 +36,6 @@ public class App {
     FuncionarioController funcionarioContoller = new FuncionarioController();
     CarroController carroController = new CarroController();
     ClienteController clienteController = new ClienteController();
-    VendaController vendaController = new VendaController();
 
     // Gerente
     String[] cpfGerentes = { "44497902358", "28936864351", "48710146903" };
@@ -189,14 +187,6 @@ public class App {
 
     Tela tela = new Tela();
     tela.setVisible(true);
-
-    /**
-     * // Instância Venda double valorEntrada = 10000; double valorTotal =
-     * 267909.37; String formaPagamento = "Parcelado"; int numParcelas = 16; String
-     * cpfFuncionario = "68759145064"; String cpfCliente = "52759319997"; int
-     * codigoCarro = 23; vendaController.iniciarNovaVenda(valorEntrada, valorTotal,
-     * formaPagamento, numParcelas, cpfFuncionario, cpfCliente, codigoCarro);
-     */
 
   }
 }
