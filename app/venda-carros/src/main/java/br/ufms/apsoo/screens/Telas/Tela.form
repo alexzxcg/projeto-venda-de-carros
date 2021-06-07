@@ -61,7 +61,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="24" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Sistema De Vendas"/>
+        <Property name="text" type="java.lang.String" value="Sistema Carronix"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">

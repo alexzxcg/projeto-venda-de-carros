@@ -12,26 +12,17 @@ import javax.swing.JLabel;
  *
  * @author alexlinux
  */
-public class ComprovanteDePagamento extends javax.swing.JFrame {
+public class ConfirmacaoVenda extends javax.swing.JFrame {
   private Venda venda;
 
   /**
-   * Creates new form ComprovanteDePagamento
+   * Creates new form ConfirmacaoVenda
+     * @param novaVenda
    */
-  public ComprovanteDePagamento() {
+  public ConfirmacaoVenda() {
     initComponents();
 
-/**
-    nomeCliente.setText(this.venda.getCliente().getNome());
-    cpfCliente.setText(this.venda.getCliente().getCpf());
-    codigoCarro.setText(this.venda.getCarro().getCodigo().toString());
-    marcaCarro.setText(this.venda.getCarro().getMarca());
-    modeloCarro.setText(this.venda.getCarro().getModelo());
-    valorCarro.setText("" + this.venda.getCarro().getValor());
-    formaPagamento.setText(this.venda.getFormaPagamento());
-    parcelas.setText("" + this.venda.getNumParcelas());
-    valorTotal.setText("" + this.venda.getValorTotal());
-*/
+
 
   }
 
@@ -42,67 +33,156 @@ public class ComprovanteDePagamento extends javax.swing.JFrame {
    */
   @SuppressWarnings("unchecked")
   // <editor-fold defaultstate="collapsed" desc="Generated
-  // Code">//GEN-BEGIN:initComponents
-  private void initComponents() {
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-    jLabel1 = new javax.swing.JLabel();
-    nomeCliente = new javax.swing.JLabel();
-    cpfCliente = new javax.swing.JLabel();
-    codigoCarro = new javax.swing.JLabel();
-    marcaCarro = new javax.swing.JLabel();
-    modeloCarro = new javax.swing.JLabel();
-    valorCarro = new javax.swing.JLabel();
-    formaPagamento = new javax.swing.JLabel();
-    parcelas = new javax.swing.JLabel();
-    valorTotal = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        nomeCliente = new javax.swing.JLabel();
+        cpfCliente = new javax.swing.JLabel();
+        codigoCarro = new javax.swing.JLabel();
+        marcaCarro = new javax.swing.JLabel();
+        modeloCarro = new javax.swing.JLabel();
+        valorCarro = new javax.swing.JLabel();
+        formaPagamento = new javax.swing.JLabel();
+        parcelas = new javax.swing.JLabel();
+        valorTotal = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
-    setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-    jLabel1.setText("Comprovante De Pagamento");
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel1.setText("Confirmacão De Venda");
 
-    nomeCliente.setText("jLabel2");
+        nomeCliente.setText("Nome");
 
-    cpfCliente.setText("jLabel3");
+        cpfCliente.setText("Cpf");
 
-    codigoCarro.setText("jLabel4");
+        codigoCarro.setText("Codigo Do Carro");
 
-    marcaCarro.setText("jLabel5");
+        marcaCarro.setText("Marca Do Carro");
 
-    modeloCarro.setText("jLabel6");
+        modeloCarro.setText("Modelo Do Carro");
 
-    valorCarro.setText("jLabel7");
+        valorCarro.setText("Valor Do Carro");
 
-    formaPagamento.setText("jLabel8");
+        formaPagamento.setText("Forma De Pagamento");
 
-    parcelas.setText("jLabel9");
+        parcelas.setText("Parcelas");
 
-    valorTotal.setText("jLabel10");
+        valorTotal.setText("Valor Total");
 
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-    getContentPane().setLayout(layout);
-    layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-            layout.createSequentialGroup().addContainerGap(107, Short.MAX_VALUE).addComponent(jLabel1).addGap(92, 92,
-                92))
-        .addGroup(layout.createSequentialGroup().addContainerGap()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(nomeCliente)
-                .addComponent(cpfCliente).addComponent(codigoCarro).addComponent(marcaCarro).addComponent(modeloCarro)
-                .addComponent(valorCarro).addComponent(formaPagamento).addComponent(parcelas).addComponent(valorTotal))
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
-    layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup().addContainerGap().addComponent(jLabel1).addGap(22, 22, 22)
-            .addComponent(nomeCliente).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(cpfCliente).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(codigoCarro).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(marcaCarro).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(modeloCarro).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(valorCarro).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(formaPagamento).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(parcelas).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(valorTotal).addContainerGap(14, Short.MAX_VALUE)));
+        jButton1.setText("Visualizar Dados");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-    pack();
-  }// </editor-fold>//GEN-END:initComponents
+        jButton3.setText("Sair");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nomeCliente)
+                            .addComponent(cpfCliente)
+                            .addComponent(codigoCarro)
+                            .addComponent(marcaCarro)
+                            .addComponent(modeloCarro)
+                            .addComponent(valorCarro)
+                            .addComponent(formaPagamento)
+                            .addComponent(parcelas)
+                            .addComponent(valorTotal))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(118, 118, 118)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(102, 102, 102)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(127, 127, 127))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(210, 210, 210))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(22, 22, 22)
+                .addComponent(nomeCliente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cpfCliente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(codigoCarro)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(marcaCarro)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(modeloCarro)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(valorCarro)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(formaPagamento)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(parcelas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(valorTotal)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3))
+                .addGap(23, 23, 23))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        System.exit(0);;
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+
+        nomeCliente.setText("Nome Cliente: "+this.venda.getCliente().getNome());
+        cpfCliente.setText("Cpf: "+this.venda.getCliente().getCpf());
+        codigoCarro.setText("Código Do Carro: "+this.venda.getCarro().getCodigo().toString());
+        marcaCarro.setText("Marca Do Carro: "+this.venda.getCarro().getMarca());
+        modeloCarro.setText("Modelo Do Carro: "+ this.venda.getCarro().getModelo());
+        valorCarro.setText("Valor Do Carro: " + this.venda.getCarro().getValor());
+        formaPagamento.setText("Forma De Pagamento: "+this.venda.getFormaPagamento());
+        if(this.venda.getNumParcelas() > 1){
+             parcelas.setText("Numero De Vezes: - " + this.venda.getNumParcelas() + String
+                     .format("\t Valor Das Parcelas: %.2f", (this.venda.getValorTotal()-this.venda.getValorEntrada()) / 
+                             this.venda.getNumParcelas()));
+        }
+        else{
+            parcelas.setText("Numero de Vezes: À VISTA");
+        }
+        valorTotal.setText("Valor Total: " + this.venda.getValorTotal());
+            
+        
+    }//GEN-LAST:event_jButton1MouseClicked
 
   public Venda getVenda() {
     return this.venda;
@@ -132,16 +212,16 @@ public class ComprovanteDePagamento extends javax.swing.JFrame {
         }
       }
     } catch (ClassNotFoundException ex) {
-      java.util.logging.Logger.getLogger(ComprovanteDePagamento.class.getName()).log(java.util.logging.Level.SEVERE,
+      java.util.logging.Logger.getLogger(ConfirmacaoVenda.class.getName()).log(java.util.logging.Level.SEVERE,
           null, ex);
     } catch (InstantiationException ex) {
-      java.util.logging.Logger.getLogger(ComprovanteDePagamento.class.getName()).log(java.util.logging.Level.SEVERE,
+      java.util.logging.Logger.getLogger(ConfirmacaoVenda.class.getName()).log(java.util.logging.Level.SEVERE,
           null, ex);
     } catch (IllegalAccessException ex) {
-      java.util.logging.Logger.getLogger(ComprovanteDePagamento.class.getName()).log(java.util.logging.Level.SEVERE,
+      java.util.logging.Logger.getLogger(ConfirmacaoVenda.class.getName()).log(java.util.logging.Level.SEVERE,
           null, ex);
     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(ComprovanteDePagamento.class.getName()).log(java.util.logging.Level.SEVERE,
+      java.util.logging.Logger.getLogger(ConfirmacaoVenda.class.getName()).log(java.util.logging.Level.SEVERE,
           null, ex);
     }
     // </editor-fold>
@@ -149,21 +229,23 @@ public class ComprovanteDePagamento extends javax.swing.JFrame {
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
-        new ComprovanteDePagamento().setVisible(true);
+        new ConfirmacaoVenda().setVisible(true);
       }
     });
   }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JLabel codigoCarro;
-  private javax.swing.JLabel cpfCliente;
-  private javax.swing.JLabel formaPagamento;
-  private javax.swing.JLabel jLabel1;
-  private javax.swing.JLabel marcaCarro;
-  private javax.swing.JLabel modeloCarro;
-  private javax.swing.JLabel nomeCliente;
-  private javax.swing.JLabel parcelas;
-  private javax.swing.JLabel valorCarro;
-  private javax.swing.JLabel valorTotal;
-  // End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel codigoCarro;
+    private javax.swing.JLabel cpfCliente;
+    private javax.swing.JLabel formaPagamento;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel marcaCarro;
+    private javax.swing.JLabel modeloCarro;
+    private javax.swing.JLabel nomeCliente;
+    private javax.swing.JLabel parcelas;
+    private javax.swing.JLabel valorCarro;
+    private javax.swing.JLabel valorTotal;
+    // End of variables declaration//GEN-END:variables
 }
