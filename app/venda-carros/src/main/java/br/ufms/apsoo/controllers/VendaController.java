@@ -23,7 +23,7 @@ public class VendaController {
   public VendaController() {
   }
 
-  public Venda iniciarNovaVenda(double valorEntrada, double valorTotal, String formaPagamento, int numParcelas,
+  public Venda finalizarVenda(double valorEntrada, double valorTotal, String formaPagamento, int numParcelas,
       String cpfFuncionario, String cpfCliente, Integer codigoCarro) {
     Venda venda = new Venda(valorEntrada, valorTotal, formaPagamento, numParcelas);
 
